@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "lint": "npx eslint app.js"
+    "lint": "npx eslint app.js",
+    "test": "./node_modules/mocha/bin/mocha test.js --reporter spec"
   },
   "devDependencies": {
     "eslint": "^8.7.0",
