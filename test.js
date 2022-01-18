@@ -1,6 +1,10 @@
 const request = require('supertest');
 const app = require('./app.js');
 
+after(() => {
+  process.exit()
+})
+
 describe('GET /', function() {
   it('return plain text response', function() {
     // Request should be plain text "Hello World"
