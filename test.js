@@ -6,8 +6,8 @@ after(() => {
 })
 
 describe('GET /', function() {
-  it('return plain text response', function() {
-    // Request should be plain text "Hello World"
+  it('return html response of "Hello World!"', function() {
+    // Request should be plain html "Hello World"
     return request(app)
       .get('/')
       .expect(200)
