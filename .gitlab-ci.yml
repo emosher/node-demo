@@ -23,19 +23,21 @@ stages:
 
 build-job:      
   stage: build
+  extends: .docker-common
   tags:
     - build
   script:
     - docker info
-    - docker build -t $CI_REGISTRY/group/project/image:latest .
-    - docker push $CI_REGISTRY/group/project/image:latest
+    - docker build -t $CI_REGISTRY/emosher/node-demo/image:latest .
+    - docker push $CI_REGISTRY/emosher/node-demo/image:latest
 
 deploy-job:
   stage: deploy
+  extends: .docker-common
   tags:
     - docker
   script:
-    - docker run $CI_REGISTRY/group/project/image:latest
+    - docker run $CI_REGISTRY/emosher/node-demo/image:latest
 
 mocha-test-job:
   extends: .tests-common   
