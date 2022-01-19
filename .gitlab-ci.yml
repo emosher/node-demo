@@ -1,5 +1,4 @@
-default:
-  # Use node image
+.tests-common:
   image: node:latest
   # Cache npm dependencies for faster runtime
   cache:
@@ -8,24 +7,48 @@ default:
       - .npm/
   before_script:
     - npm ci --cache .npm --prefer-offline
+  only:
+    changes:
+      - Dockerfile
+      - app.js
+      - test.js
 
-stages:          # List of stages for jobs, and their order of execution
-#  - build
+.docker-common:
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+stages:
   - test
+  - build
+  - deploy
 
+build-job:
+  stage: build
+  extends: .docker-common
+  tags:
+    - build
+  script:
+    - docker info
+    - docker build -t $CI_REGISTRY/emosher/node-demo/image:latest .
+    - docker push $CI_REGISTRY/emosher/node-demo/image:latest
 
-#build-job:       # This job runs in the build stage, which runs first.
-#  stage: build
-#  script:
-#    - echo "Compiling the code..."
-#    - echo "Compile complete."
+deploy-job:
+  stage: deploy
+  extends: .docker-common
+  tags:
+    - docker
+  script:
+    - docker run -d -p 3000:3000 $CI_REGISTRY/emosher/node-demo/image:latest
 
-mocha-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+mocha-test-job:
+  extends: .tests-common
+  stage: test
   script:
     - npm test
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+
+lint-test-job:
+  extends: .tests-common
+  stage: test
   script:
     - npm run lint
