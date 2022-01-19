@@ -32,7 +32,7 @@ build-job:
     - docker build -t $CI_REGISTRY/emosher/node-demo/image:latest .
     - docker push $CI_REGISTRY/emosher/node-demo/image:latest
 
-deploy-job:
+staging-deploy:
   stage: staging
   extends: .docker-common
   tags:
