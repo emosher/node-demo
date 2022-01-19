@@ -39,8 +39,8 @@ deploy-job:
     - deploy
   before_script:
     # stop/remove running container, but proceed if it doesn't exist
-    - docker stop node-demo || true
-    - docker rm node-demo || true
+    - docker stop node-demo 
+    - docker rm node-demo 
   script:
     - docker run -d -p 3000:3000 $CI_REGISTRY/emosher/node-demo/image:latest --name "node-demo"
 
