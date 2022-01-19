@@ -1,4 +1,4 @@
-tests-common:
+.tests-common:
   image: node:latest
   cache:
     key: $CI_COMMIT_REF_SLUG
