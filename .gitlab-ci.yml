@@ -20,7 +20,7 @@
 stages:
   - test
   - build
-  - deploy
+  - staging
 
 build-job:
   stage: build
@@ -33,10 +33,13 @@ build-job:
     - docker push $CI_REGISTRY/emosher/node-demo/image:latest
 
 deploy-job:
-  stage: deploy
+  stage: staging
   extends: .docker-common
   tags:
     - docker
+  before_script:
+    - docker stop $CI_REGISTRY/emosher/node-demo/image:latest
+    - docker rm $CI_REGISTRY/emosher/node-demo/image:latest
   script:
     - docker run -d -p 3000:3000 $CI_REGISTRY/emosher/node-demo/image:latest
 
