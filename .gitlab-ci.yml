@@ -22,6 +22,9 @@ build-job:
     - build
   script:
     - docker info
+    - echo $CI_REGISTRY_USER 
+    - echo $CI_JOB_TOKEN 
+    - echo $CI_REGISTRY
 
 mocha-test-job:
   extends: .tests-common   
