@@ -1,5 +1,7 @@
 default:
+  # Use node image
   image: node:latest
+  # Cache npm dependencies for faster runtime
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
