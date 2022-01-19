@@ -7,6 +7,13 @@ default:
   before_script:
     - npm ci --cache .npm --prefer-offline
 
+.tests-common:
+  only:
+    changes:
+      - Dockerfile
+      - app.js
+      - test.js
+
 stages:          # List of stages for jobs, and their order of execution
 #  - build
   - test
@@ -18,12 +25,15 @@ stages:          # List of stages for jobs, and their order of execution
 #    - echo "Compiling the code..."
 #    - echo "Compile complete."
 
-mocha-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+mocha-test-job:
+  extends: .tests-common   
+  stage: test    
   script:
     - npm test
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+
+lint-test-job:   
+  extends: .tests-common
+  stage: test    
   script:
     - npm run lint
