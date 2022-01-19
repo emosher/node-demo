@@ -12,9 +12,14 @@
       - app.js
       - test.js
 
+.docker-common:
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
 stages:   
   - test
   - build
+  - deploy
 
 build-job:      
   stage: build
@@ -22,9 +27,15 @@ build-job:
     - build
   script:
     - docker info
-    - echo $CI_REGISTRY_USER 
-    - echo $CI_JOB_TOKEN 
-    - echo $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/group/project/image:latest .
+    - docker push $CI_REGISTRY/group/project/image:latest
+
+deploy-job:
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - docker run $CI_REGISTRY/group/project/image:latest
 
 mocha-test-job:
   extends: .tests-common   
