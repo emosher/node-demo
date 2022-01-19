@@ -1,4 +1,4 @@
-default:
+tests-common:
   image: node:latest
   cache:
     key: $CI_COMMIT_REF_SLUG
@@ -6,8 +6,6 @@ default:
       - .npm/
   before_script:
     - npm ci --cache .npm --prefer-offline
-
-.tests-common:
   only:
     changes:
       - Dockerfile
