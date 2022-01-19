@@ -8,6 +8,12 @@ module.exports = {
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    "plugins": [
+      "mocha"
+    ],
     "rules": {
-    }
+    },
+    "extends": [
+        "plugin:mocha/recommended"
+    ]
 }
