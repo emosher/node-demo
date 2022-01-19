@@ -42,7 +42,7 @@ deploy-job:
     - docker stop node-demo || true
     - docker rm node-demo || true
   script:
-    - docker run -d -p 3000:3000 $CI_REGISTRY/emosher/node-demo/image:latest --name "node-demo"
+    - docker run -d -p 3000:3000 --name node-demo $CI_REGISTRY/emosher/node-demo/image:latest 
 
 mocha-test-job:
   extends: .tests-common
