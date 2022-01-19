@@ -37,7 +37,7 @@ deploy-job:
   tags:
     - docker
   script:
-    - docker run -p 3000:3000 $CI_REGISTRY/emosher/node-demo/image:latest
+    - docker run -d -p 3000:3000 $CI_REGISTRY/emosher/node-demo/image:latest
 
 mocha-test-job:
   extends: .tests-common   
