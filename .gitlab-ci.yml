@@ -36,7 +36,7 @@ deploy-job:
   stage: staging
   extends: .docker-common
   tags:
-    - docker
+    - deploy
   before_script:
     # stop/remove running container, but proceed if it doesn't exist
     - docker stop node-demo || true
