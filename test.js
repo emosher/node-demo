@@ -8,7 +8,7 @@ describe('GET /', function() {
       .get('/')
       .expect(200)
       .expect('Content-Type',/text\/html/)
-      .expect('Hello World!')
+      .expect('Hello Worlds!')
   })
 
   after(function() {
