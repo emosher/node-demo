@@ -25,6 +25,9 @@ stages:
 build-job:
   stage: build
   extends: .docker-common
+  except:
+    changes:
+      - README.md
   tags:
     - build
   script:
