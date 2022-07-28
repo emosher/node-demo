@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: node-demo
+  description: Node Demo
+  tags:
+    - web
+    - node
+    - javascript
+  annotations:
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=node-demo'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team
